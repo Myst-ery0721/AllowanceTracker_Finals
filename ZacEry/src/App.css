@@ -1,0 +1,340 @@
+/* App.css - Green Money Palette */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #e7eadd; /* Gossip */
+  color: #374151;
+}
+
+.app {
+  min-height: 100vh;
+  background-color: #ffffff; /* Gossip */
+}
+
+/* Navigation Styles */
+.navbar {
+  background-color: #73b088;
+  color: white;
+  padding: 24px 16px; /* Increased vertical padding (was 16px) */
+  border-bottom: 2px solid black; /* <- Add this line */
+}
+
+
+.navbar-container {
+  display: flex;
+  justify-content: space-around;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.nav-button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  background-color: transparent;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-size: 16px;
+}
+
+.nav-button:hover {
+  background-color: #95c7a5; /* slightly darker Moss Green */
+}
+
+.nav-button.active {
+  background-color: rgb(60, 90, 60);
+  border-radius: 9999px; /* Full pill shape */
+  padding: 8px 20px; /* Optional: more horizontal space */
+}
+
+
+/* Page Container */
+.page-container {
+  padding: 24px;
+  background-color: whitesmoke; /* Gossip */
+  min-height: 100vh;
+  
+}
+.user-name {
+  font-size: 60px;
+  font-weight: 700;
+  margin-bottom: 80px;
+  color: #1f2937; /* darker slate tone */
+  text-align: center;
+}
+
+.highlight {
+  padding: 0 4px;
+  background: linear-gradient(to top, #b2f2bb 60%, transparent 40%);
+
+}
+
+.page-title {
+  font-size: 30px;
+  font-weight: 500;
+  margin-bottom: 20px;
+  margin-top: 50px;
+  color: #1d1e1c;
+  text-align: center;
+}
+
+.card,
+.balance-card,
+.summary-card {
+  background-color: white; /* Sandwisp */
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 25px;
+  margin-bottom: 24px;
+  border: 2px solid black;
+}
+
+.balance-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.balance-icon {
+  color: #c0e5b8; /* Celadon */
+  margin-right: 12px;
+}
+
+.balance-text {
+  text-align: center;
+}
+
+.balance-label {
+  font-size: 18px;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 8px;
+}
+
+.balance-amount {
+  font-size: 36px;
+  font-weight: bold;
+  color: #309835;
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+@media (min-width: 768px) {
+  .summary-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.summary-content {
+  display: flex;
+  align-items: center;
+}
+
+.summary-icon {
+  margin-right: 12px;
+  color: white; /* Moss Green */
+}
+
+.summary-text h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 4px;
+}
+
+.summary-amount {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.income-amount {
+  color: #306844; /* Celadon */
+}
+
+.expense-amount {
+  color: #702322; /* Maize */
+}
+
+/* Form Styles */
+.form-container {
+  max-width: 400px;
+  margin: 0 auto;
+  background-color: white; /* Sandwisp */
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 24px;
+  border: 1px solid black;
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-label {
+  display: block;
+  color: #374151;
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.form-input,
+.form-select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 15px;
+  font-size: 14px;
+  background-color: white;
+  transition: border-color 0.2s;
+}
+
+.form-input:focus,
+.form-select:focus {
+  outline: none;
+  border-color: #c0e5b8; /* Celadon */
+}
+
+.submit-button {
+  width: 100%;
+  padding: 12px 16px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.income-button {
+  background-color: #c0e5b8; /* Celadon */
+  color: black;
+}
+
+.income-button:hover {
+  background-color: #aed6a6; /* Darker Celadon */
+}
+
+.expense-button {
+  background-color: #f7c8b1; /* Maize */
+  color: black;
+}
+
+.expense-button:hover {
+  background-color: #f5bda4; /* Slightly darker Maize */
+}
+
+/* Transaction Styles */
+.transactions-container,
+.all-transactions-container {
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: #a7d7b8; /* Sandwisp */
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 24px;
+  border: 1px solid black;
+}
+
+.transactions-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: #1f2937;
+}
+
+.transaction-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.transaction-item,
+.all-transaction-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  background-color: #fff;
+  border-radius: 8px;
+  border: 1px solid black;
+}
+
+.transaction-details {
+  display: flex;
+  align-items: center;
+}
+
+.transaction-icon {
+  color: #9ca3af;
+  margin-right: 12px;
+}
+
+.transaction-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.transaction-description {
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.transaction-meta {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.transaction-amount {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.income-text {
+  color: #c0e5b8; /* Celadon */
+}
+
+.expense-text {
+  color: #f7c8b1; /* Maize */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .navbar-container {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .nav-button {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+
+  .page-container {
+    padding: 16px;
+  }
+
+  .page-title {
+    font-size: 24px;
+  }
+
+  .balance-amount {
+    font-size: 28px;
+  }
+
+  .summary-amount {
+    font-size: 20px;
+  }
+}
