@@ -17,6 +17,9 @@ const Dashboard = ({ balance, transactions, user }) => {
       <h1 className="user-name">
         <span className="highlight">{user?.displayName || 'Student'}</span>! 
       </h1>
+      <br></br>
+      <br></br>
+      <br></br>
 
       <BalanceCard balance={balance} />
       <SummaryCards transactions={transactions} />

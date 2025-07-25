@@ -60,7 +60,10 @@ const AddExpense = ({ addTransaction, balance }) => {
 
   return (
     <div className="page-container">
-      <h1 className="page-title">Add Expense</h1>
+      <br></br>
+
+      <h1 className="user-name"><span className="highlight">Add Expense</span></h1>
+      <br></br>
       
       <div className="form-container">
         <div className="form-group">

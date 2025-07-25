@@ -23,7 +23,11 @@ const AllTransactions = ({ transactions }) => {
 
   return (
     <div className="page-container">
-      <h1 className="page-title">All Transactions</h1>
+      <br></br>
+      <br></br>
+      <br></br>
+      <h1 className="user-name"><span className="highlight">All Transactions</span></h1>
+      <br></br>
       
       {/* Filter Controls */}
       <div className="filter-container">

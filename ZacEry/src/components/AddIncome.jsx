@@ -52,7 +52,11 @@ const AddIncome = ({ addTransaction }) => {
 
   return (
     <div className="page-container">
-      <h1 className="page-title">Add Income</h1>
+      <br></br>
+      <br></br>
+
+      <h1 className="user-name"><span className="highlight">Add Income</span></h1>
+      <br></br>
       
       <div className="form-container">
         <div className="form-group">

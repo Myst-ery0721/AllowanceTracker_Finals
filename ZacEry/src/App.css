@@ -49,7 +49,7 @@ body {
 }
 
 .nav-button.active {
-  background-color: rgb(60, 90, 60);
+  background-color: rgb(102, 162, 127);
   border-radius: 9999px; /* Full pill shape */
   padding: 8px 20px; /* Optional: more horizontal space */
 }
@@ -65,7 +65,7 @@ body {
 .user-name {
   font-size: 60px;
   font-weight: 700;
-  margin-bottom: 80px;
+  /* margin-bottom: 80px; */
   color: #1f2937; /* darker slate tone */
   text-align: center;
 }
@@ -121,7 +121,7 @@ body {
 .balance-amount {
   font-size: 36px;
   font-weight: bold;
-  color: #309835;
+  color: #5a925d;
 }
 
 .summary-grid {
@@ -160,17 +160,17 @@ body {
 }
 
 .income-amount {
-  color: #306844; /* Celadon */
+  color: #639675; /* Celadon */
 }
 
 .expense-amount {
-  color: #702322; /* Maize */
+  color: #a47070; /* Maize */
 }
 
-/* Filter Styles */
+/* Filter Styles - SORT GROUP */
 .filter-container {
   margin-bottom: 20px;
-  padding: 20px;
+  padding: 17px;
   background-color: white;
   border-radius: 12px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -183,7 +183,7 @@ body {
   display: flex;
   align-items: center;
   gap: 15px;
-  justify-content: center;
+  justify-content: left;
 }
 
 .filter-label {
@@ -345,11 +345,11 @@ body {
 }
 
 .income-text {
-  color: #c0e5b8; /* Celadon */
+  color: #82e9a6; /* Celadon */
 }
 
 .expense-text {
-  color: #f7c8b1; /* Maize */
+  color: #e98282; /* Maize */
 }
 
 /* Responsive Design */
