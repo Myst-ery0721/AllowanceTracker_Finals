@@ -35,7 +35,7 @@ body {
 .nav-left {
   display: flex;
   align-items: center;
-  gap: 1rem; /* spacing between logo and buttons */
+  gap: 1rem; 
 }
 
 .nav-right {
@@ -54,9 +54,10 @@ body {
   font-size: 15px;
 }
 
-.nav-button:hover {
+.nav-left .nav-button:hover {
   background-color: #95c7a5;
 }
+
 
 .nav-button.active {
   background-color: rgb(102, 162, 127);
@@ -117,7 +118,7 @@ body {
 }
 
 .balance-icon {
-  color: #c0e5b8; 
+  color: #b66828; 
   margin-right: 12px;
 }
 
