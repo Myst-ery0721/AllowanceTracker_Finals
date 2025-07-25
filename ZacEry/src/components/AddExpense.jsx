@@ -1,10 +1,17 @@
-// components/AddExpense.js
+// Replace your AddExpense.jsx with this updated version:
+
 import React, { useState } from 'react';
 
 const AddExpense = ({ addTransaction, balance }) => {
   const [expense, setExpense] = useState('');
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState('food');
+  const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
+  const [time, setTime] = useState(new Date().toLocaleTimeString('en-US', { 
+    hour: '2-digit', 
+    minute: '2-digit',
+    hour12: false 
+  }));
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async () => {
@@ -18,11 +25,15 @@ const AddExpense = ({ addTransaction, balance }) => {
       
       setLoading(true);
       
+      console.log('🔄 Submitting expense with time:', { expense, description, category, date, time });
+      
       const transaction = {
         type: 'expense',
         amount: expenseAmount,
         description: description,
-        category: category
+        category: category,
+        date: date,
+        time: time
       };
       
       const success = await addTransaction(transaction);
@@ -30,6 +41,12 @@ const AddExpense = ({ addTransaction, balance }) => {
       if (success) {
         setExpense('');
         setDescription('');
+        setDate(new Date().toISOString().split('T')[0]);
+        setTime(new Date().toLocaleTimeString('en-US', { 
+          hour: '2-digit', 
+          minute: '2-digit',
+          hour12: false 
+        }));
         alert('Expense added successfully!');
       } else {
         alert('Failed to add expense. Please try again.');
@@ -84,6 +101,28 @@ const AddExpense = ({ addTransaction, balance }) => {
             <option value="books">Books/Supplies</option>
             <option value="other">Other</option>
           </select>
+        </div>
+
+        <div className="form-group">
+          <label className="form-label">Date</label>
+          <input
+            type="date"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+            className="form-input"
+            disabled={loading}
+          />
+        </div>
+
+        <div className="form-group">
+          <label className="form-label">Time</label>
+          <input
+            type="time"
+            value={time}
+            onChange={(e) => setTime(e.target.value)}
+            className="form-input"
+            disabled={loading}
+          />
         </div>
         
         <button

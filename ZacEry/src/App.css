@@ -167,6 +167,48 @@ body {
   color: #702322; /* Maize */
 }
 
+/* Filter Styles */
+.filter-container {
+  margin-bottom: 20px;
+  padding: 20px;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: 2px solid black;
+  max-width: 600px;
+  margin: 0 auto 20px auto;
+}
+
+.filter-group {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  justify-content: center;
+}
+
+.filter-label {
+  font-weight: 600;
+  color: #374151;
+  font-size: 16px;
+}
+
+.filter-select {
+  padding: 10px 15px;
+  border: 2px solid #d1d5db;
+  border-radius: 8px;
+  background: white;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+  transition: border-color 0.2s;
+}
+
+.filter-select:focus {
+  outline: none;
+  border-color: #73b088;
+}
+
 /* Form Styles */
 .form-container {
   max-width: 400px;
@@ -336,5 +378,14 @@ body {
 
   .summary-amount {
     font-size: 20px;
+  }
+
+  .filter-group {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .filter-select {
+    width: 100%;
   }
 }

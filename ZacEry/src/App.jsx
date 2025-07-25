@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
-import { doc, getDoc, setDoc, collection, query, where, onSnapshot, addDoc } from 'firebase/firestore';
+import { doc, getDoc, setDoc, collection, query, where, onSnapshot, addDoc, serverTimestamp } from 'firebase/firestore';
 import { auth, db } from './firebase';
 import './App.css';
 import './Auth.css';
@@ -63,28 +63,49 @@ const App = () => {
     return () => unsubscribe();
   }, []);
 
-  // Load user transactions and balance - FIXED VERSION (No index required)
+  // FIXED: Load user transactions and balance with better error handling
   const loadUserData = (userId) => {
-    // Simple query without orderBy to avoid index requirement
+    console.log('🔄 Loading data for user:', userId);
+    
     const q = query(
       collection(db, 'transactions'), 
       where('userId', '==', userId)
-      // Removed orderBy to avoid index requirement
     );
     
     const unsubscribe = onSnapshot(q, (snapshot) => {
+      console.log('📊 Received', snapshot.docs.length, 'transactions from Firebase');
+      
       const transactionList = [];
       snapshot.forEach((doc) => {
-        transactionList.push({ id: doc.id, ...doc.data() });
+        const data = doc.data();
+        
+        // Handle different timestamp formats
+        let sortTimestamp;
+        if (data.timestamp?.toMillis) {
+          // Firestore Timestamp
+          sortTimestamp = data.timestamp.toMillis();
+        } else if (data.timestamp instanceof Date) {
+          // JavaScript Date
+          sortTimestamp = data.timestamp.getTime();
+        } else if (typeof data.timestamp === 'number') {
+          // Already a number
+          sortTimestamp = data.timestamp;
+        } else {
+          // Fallback to date string
+          sortTimestamp = new Date(data.date || 0).getTime();
+        }
+        
+        transactionList.push({ 
+          id: doc.id, 
+          ...data,
+          sortTimestamp
+        });
       });
       
-      // Sort in JavaScript instead of Firestore (no index needed)
-      transactionList.sort((a, b) => {
-        const dateA = new Date(a.timestamp || a.date);
-        const dateB = new Date(b.timestamp || b.date);
-        return dateB - dateA; // Most recent first
-      });
+      // Sort by timestamp (most recent first)
+      transactionList.sort((a, b) => b.sortTimestamp - a.sortTimestamp);
       
+      console.log('📋 Processed transactions:', transactionList.length);
       setTransactions(transactionList);
       
       // Calculate balance
@@ -96,7 +117,12 @@ const App = () => {
         .filter(t => t.type === 'expense')
         .reduce((sum, t) => sum + t.amount, 0);
       
-      setBalance(totalIncome - totalExpenses);
+      const newBalance = totalIncome - totalExpenses;
+      console.log('💰 New balance calculated:', newBalance);
+      setBalance(newBalance);
+      
+    }, (error) => {
+      console.error('❌ Error in onSnapshot:', error);
     });
 
     return unsubscribe;
@@ -107,29 +133,63 @@ const App = () => {
     setCurrentPage(page);
   };
 
-  // Function to add new transaction - SIMPLIFIED
+  // FIXED: Simplified addTransaction function for better reliability
   const addTransaction = async (transaction) => {
     if (!user) {
-      console.error('No user logged in');
+      console.error('❌ No user logged in');
       return false;
     }
 
     try {
+      console.log('🔄 Starting to add transaction:', transaction);
+      
+      const now = new Date();
+      
+      // Format time properly
+      const formatTime = (timeString) => {
+        if (!timeString) {
+          return now.toLocaleTimeString('en-US', {
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: true
+          });
+        }
+        
+        // If time is in 24-hour format (HH:MM), convert to 12-hour
+        if (timeString.includes(':') && !timeString.includes(' ')) {
+          const [hours, minutes] = timeString.split(':');
+          const hour = parseInt(hours);
+          const ampm = hour >= 12 ? 'PM' : 'AM';
+          const displayHour = hour === 0 ? 12 : hour > 12 ? hour - 12 : hour;
+          return `${displayHour}:${minutes} ${ampm}`;
+        }
+        
+        return timeString;
+      };
+
+      // Create transaction with both client timestamp (for immediate sorting) and server timestamp
       const newTransaction = {
         ...transaction,
         userId: user.uid,
-        date: new Date().toISOString().split('T')[0],
-        timestamp: new Date() // This will be a Timestamp in Firestore
+        date: transaction.date || now.toISOString().split('T')[0],
+        time: formatTime(transaction.time),
+        timestamp: now, // Use client timestamp for immediate updates
+        serverTimestamp: serverTimestamp(), // Server timestamp for consistency
+        createdAt: now.toISOString()
       };
+      
+      console.log('💾 Saving transaction to Firebase:', newTransaction);
       
       // Add to Firestore
       const docRef = await addDoc(collection(db, 'transactions'), newTransaction);
-      console.log('✅ Transaction saved with ID:', docRef.id);
+      console.log('✅ Transaction saved successfully with ID:', docRef.id);
       
-      return true; // Success
+      return true;
     } catch (error) {
       console.error('❌ Error adding transaction:', error);
-      return false; // Failed
+      console.error('❌ Error code:', error.code);
+      console.error('❌ Error message:', error.message);
+      return false;
     }
   };
 
