@@ -110,14 +110,6 @@ const App = () => {
       setTransactions(transactionList);
       
       // Calculate balance
-      const totalIncome = transactionList
-        .filter(t => t.type === 'income')
-        .reduce((sum, t) => sum + t.amount, 0);
-      
-      const totalExpenses = transactionList
-        .filter(t => t.type === 'expense')
-        .reduce((sum, t) => sum + t.amount, 0);
-      
       const newBalance = totalIncome - totalExpenses;
       console.log('💰 New balance calculated:', newBalance);
       setBalance(newBalance);
