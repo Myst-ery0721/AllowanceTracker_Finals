@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { doc, getDoc, setDoc, collection, query, where, onSnapshot, addDoc, serverTimestamp } from 'firebase/firestore';
 import { auth, db } from './firebase';
+import { calculateBalance } from './utils';
 import './App.css';
 import './Auth.css';
 
